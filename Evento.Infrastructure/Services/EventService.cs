@@ -6,6 +6,7 @@ using Evento.Infrastructure.DTO;
 using Evento.Core.Repositories;
 using System.Linq;
 using AutoMapper;
+using Evento.Core.Domain;
 
 namespace Evento.Infrastructure.Services
 {
@@ -44,14 +45,27 @@ namespace Evento.Infrastructure.Services
 
         public async Task CreateAsync(Guid id, string name, string description, DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var @event = await _eventRepository.GetAsync(name);
+            if(@event != null)
+            {
+                throw new Exception($"Event named: '{name}' already exists.");
+            }
+            @event = new Event(id, name, description, startDate, endDate);
+            await _eventRepository.AddAsync(@event);
+        }
+
+        public async Task AddTicketsAsync(Guid eventId, int amount, decimal price)
+        {
+            var @event = await _eventRepository.GetAsync(eventId);
+            if (@event == null)
+            {
+                throw new Exception($"Event with id: '{eventId}' does not exist.");
+            }
+            @event.AddTickets(amount, price);
+            await _eventRepository.UpdateAsync(@event);
         }
 
         public async Task UpdateAsync(Guid id, string name, string description)
-        {
-            throw new NotImplementedException();
-        }
-        public async Task AddTicketsAsync(Guid eventId, int amount, decimal price)
         {
             throw new NotImplementedException();
         }
@@ -60,7 +74,5 @@ namespace Evento.Infrastructure.Services
         {
             throw new NotImplementedException();
         }
-
-
     }
 }
