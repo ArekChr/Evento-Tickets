@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Evento.Infrastructure.DTO;
 using Evento.Core.Repositories;
 using System.Linq;
+using AutoMapper;
 
 namespace Evento.Infrastructure.Services
 {
@@ -12,46 +13,33 @@ namespace Evento.Infrastructure.Services
     {
         private readonly IEventRepository _eventRepository;
 
-        public EventService(IEventRepository eventRepository)
+        private readonly IMapper _mapper;
+
+        public EventService(IEventRepository eventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
+            _mapper = mapper;
         }
 
         public async Task<EventDTO> GetAsync(Guid id)
         {
             var @event = await _eventRepository.GetAsync(id);
-            if(@event == null)
-            {
-                return null;
-            }
 
-            return new EventDTO
-            {
-                Id = @event.Id,
-                Name = @event.Name
-            };
+            return _mapper.Map<EventDTO>(@event);
         }
 
         public async Task<EventDTO> GetAsync(string name)
         {
             var @event = await _eventRepository.GetAsync(name);
 
-            return new EventDTO
-            {
-                Id = @event.Id,
-                Name = @event.Name
-            };
+            return _mapper.Map<EventDTO>(@event);
         }
 
         public async Task<IEnumerable<EventDTO>> BrowseAsync(string name = null)
         {
             var @events = await _eventRepository.BrowseAsync(name);
 
-            return events.Select( @event => new EventDTO
-            {
-                Id = @event.Id,
-                Name = @event.Name
-            });
+            return _mapper.Map<IEnumerable<EventDTO>>(@events);
         }
 
         public async Task CreateAsync(Guid id, string name, string description, DateTime startDate, DateTime endDate)
