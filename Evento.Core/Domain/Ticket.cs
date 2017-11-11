@@ -10,8 +10,8 @@ namespace Evento.Core.Domain
         public Guid? UserId { get ; protected set; }
         public string Username { get ; protected set; }
         public DateTime? PurchasedAt { get ; protected set; }
-        
         public bool Purchased => PurchasedAt.HasValue;
+
         protected Ticket(){
 
         }
