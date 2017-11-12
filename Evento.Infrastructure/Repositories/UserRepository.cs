@@ -16,19 +16,19 @@ namespace Evento.Infrastructure.Repositories
             => await Task.FromResult(_users.SingleOrDefault(x => x.Id == id));
 
         public async Task<User> GetAsync(string email)
-            => await Task.FromResult(_users.SingleOrDefault(x => x.Email.ToLowerInvariant() == email.ToLowerInvariant()));       
+            => await Task.FromResult(_users.SingleOrDefault(x => 
+            x.Email.ToLowerInvariant() == email.ToLowerInvariant()));       
 
-        public async Task UpdateAsync(User user)
+        public async Task AddAsync(User user)
         {
             _users.Add(user);
             await Task.CompletedTask;
         }
 
-        public async Task AddAsync(User user)
+        public async Task UpdateAsync(User user)
         {
             await Task.CompletedTask;
         }
-
         public async Task DeleteAsync(User user)
         {
             _users.Remove(user);

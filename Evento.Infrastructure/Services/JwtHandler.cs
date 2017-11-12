@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Text;
 using Evento.Infrastructure.DTO;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.Extensions.Options;
 using Evento.Infrastructure.Settings;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Evento.Infrastructure.Repositories;
 using Microsoft.IdentityModel.Tokens;
-using Evento.Infrastructure.Extensions;
 
 namespace Evento.Infrastructure.Services
 {
     public class JwtHandler : IJwtHandler
     {
-        private readonly JwtSettings _jwtSettings;
+        //private readonly JwtSettings _settings;
 
-        public JwtHandler(IOptions<JwtSettings> jwtSettings)
-        {
-            _jwtSettings = jwtSettings.Value;
-        }
+        //public JwtHandler(JwtSettings settings)
+        //{
+        //    _settings = settings;
+        //}
 
         public JwtDTO CreateToken(Guid userId, string role)
         {
@@ -32,15 +31,15 @@ namespace Evento.Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString())
             };
 
-            var expires = now.AddMinutes(_jwtSettings.ExpiryMinutes);
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key)),
+            var expiry = now.AddMinutes(20);
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super_secret_key123!")), 
                 SecurityAlgorithms.HmacSha256);
 
             var jwt = new JwtSecurityToken(
-                issuer: _jwtSettings.Issuer,
+                issuer: "http://localhost:57349",
                 claims: claims,
                 notBefore: now,
-                expires: expires,
+                expires: expiry,
                 signingCredentials: signingCredentials
                 );
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -48,7 +47,7 @@ namespace Evento.Infrastructure.Services
             return new JwtDTO
             {
                 Token = token,
-                Expires = expires.ToTimestamp()
+                Expires = expiry.ToTimestamp()
             };
         }
     }

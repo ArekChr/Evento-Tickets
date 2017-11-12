@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Evento.Infrastructure.Settings
 {
-   public class JwtSettings
+    public class JwtSettings
     {
         public string Key { get; set; }
 

@@ -13,13 +13,16 @@ namespace Evento.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IJwtHandler _jwtHandler;
+
         private readonly IMapper _mapper;
-        public UserService(IUserRepository userRepository, IJwtHandler jwtHandler, IMapper mapper)
+
+        private readonly IJwtHandler _jwtHandler;
+
+        public UserService(IUserRepository userRepository, IMapper mapper, IJwtHandler jwtHandler)
         {
             _userRepository = userRepository;
-            _jwtHandler = jwtHandler;
             _mapper = mapper;
+            _jwtHandler = jwtHandler;
         }
 
         public async Task<AccountDTO> GetAccountAsync(Guid userId)
@@ -43,7 +46,7 @@ namespace Evento.Infrastructure.Services
         public async Task<TokenDTO> LoginAsync(string email, string password)
         {
             var user = await _userRepository.GetAsync(email);
-            if (user != null)
+            if (user == null)
             {
                 throw new Exception($"Invalid credentials.");
             }

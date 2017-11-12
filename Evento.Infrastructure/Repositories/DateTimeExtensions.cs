@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Evento.Infrastructure.Extensions
+namespace Evento.Infrastructure.Repositories
 {
     public static class DateTimeExtensions
     {

@@ -45,7 +45,7 @@ namespace Evento.Core.Domain
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new Exception($"Event with id: '{Id}' can not have an ampty name.");
+                throw new Exception($"Event with id: '{Id}' can not have an empty name.");
             }
             Name = name;
             UpdatedAt = DateTime.UtcNow;
@@ -55,7 +55,7 @@ namespace Evento.Core.Domain
         {
             if (string.IsNullOrWhiteSpace(description))
             {
-                throw new Exception($"Event with id: '{Id}' can not have an ampty name.");
+                throw new Exception($"Event with id: '{Id}' can not have an empty name.");
             }
             Description = description;
             UpdatedAt = DateTime.UtcNow;
