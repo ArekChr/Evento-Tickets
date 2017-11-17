@@ -4,6 +4,7 @@ using Evento.Infrastructure.DTO;
 using Evento.Infrastructure.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,16 @@ namespace Evento.Infrastructure.Services
             _userRepository = userRepository;
             _eventRepository = eventRepository;
             _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<TicketDTO>> GetForUserAsync(Guid userId)
+        {
+            var user = await _userRepository.GetOrFailAsync(userId);
+            var events = await _eventRepository.BrowseAsync();
+
+            var tickets = events.SelectMany(x => x.GetTicketsPurchasedByUser(user));
+
+            return _mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public async Task<TicketDTO> GetAsync(Guid userId, Guid eventId, Guid ticketId)
@@ -47,6 +58,7 @@ namespace Evento.Infrastructure.Services
             @event.CancelPurchasedTickets(user, amount);
             await _eventRepository.UpdateAsync(@event);
         }
+
 
     }
 }
