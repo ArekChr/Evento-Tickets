@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evento.Core", "Evento.Core\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evento.Infrastructure", "Evento.Infrastructure\Evento.Infrastructure.csproj", "{455DE6DD-A617-4634-8759-803E4E197F8E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evento.Tests", "tests\Evento.Tests\Evento.Tests.csproj", "{2DCCD5C8-2F37-4D35-B316-CF2F1D779ECA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evento.Tests.EndToEnd", "tests\Evento.Tests.EndToEnd\Evento.Tests.EndToEnd.csproj", "{EAC36B0C-6A29-481A-A187-C2636E70754B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{455DE6DD-A617-4634-8759-803E4E197F8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{455DE6DD-A617-4634-8759-803E4E197F8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{455DE6DD-A617-4634-8759-803E4E197F8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DCCD5C8-2F37-4D35-B316-CF2F1D779ECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DCCD5C8-2F37-4D35-B316-CF2F1D779ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DCCD5C8-2F37-4D35-B316-CF2F1D779ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DCCD5C8-2F37-4D35-B316-CF2F1D779ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC36B0C-6A29-481A-A187-C2636E70754B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC36B0C-6A29-481A-A187-C2636E70754B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC36B0C-6A29-481A-A187-C2636E70754B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC36B0C-6A29-481A-A187-C2636E70754B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
